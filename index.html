@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="description" content="">
+    <title>Document</title>
+</head>
+<style>
+    * {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background-color: #1e1e1e;
+    overflow-x: hidden;
+}
+
+/* aqui o prazo está display none, para facilitar o js*/
+
+#prazo{
+    display: none;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    width: 100vw;
+    height: 100vh;
+    gap: 15px;
+}
+
+.box h3{
+    color: white;
+}
+
+.container i{
+    font-size: 25px;
+    color: #19d378;
+}
+
+.valordsj{
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.box {
+    width: 300px;
+    height: auto;
+    background-color: #258663;
+    border: 3px solid #17b66c;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 20px;
+    padding-bottom: 25px;
+}
+
+.row-valores {
+    width: auto;
+    display: grid; /* Usando Grid Layout */
+    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas igualmente espaçadas */
+    gap: 10px; /* Espaçamento entre os elementos */
+    margin-top: 12px;
+    border-radius: 10px;
+}
+
+.row-prazo {
+    width: auto;
+    display: grid; /* Usando Grid Layout */
+    grid-template-columns: repeat(3, 1fr); /* Cria 3 colunas igualmente espaçadas */
+    gap: 10px; /* Espaçamento entre os elementos */
+    margin-top: 12px;
+    border-radius: 10px;
+}
+
+.box span {
+    position: relative;
+    display: inline-block;
+    background-color: #018e49;
+    padding: 17px 11px;
+    border: 2px solid #15c375;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all .6s ease; /* Para esconder o conteúdo que excede o tamanho do elemento */
+}
+
+.infos{
+    width: 265px;
+    padding: 30px;
+    background-color: #2d584d;
+    padding-bottom: 15px;
+    border-radius: 0 0 20px 20px;
+    border-bottom: 4px solid #17b66c;
+    margin-top: -32px;
+    z-index: -2;
+    text-align: center;
+}
+
+.infos p{
+    font-weight: 600;
+    font-size: 11px;
+    color: white;
+}
+
+.circleScaleBtn {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.circleScaleBtn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120%;
+    height: 120%;
+    border-radius: 40%;
+    transform: translate3d(-50%,-50%,0) scale3d(0,0,0);
+    transition: all .2s ease;
+    background-color: #ffffff15;
+    z-index: -1;
+    opacity: 0; /* Inicialmente, o elemento é invisível */
+}
+.none{
+    display: none;
+}
+.left{
+    transform: translateX(-50px);
+    opacity: 0;
+    visibility: hidden;
+}
+.right{
+    transform: translateX(50px);
+    visibility: hidden;
+    opacity: 0;
+}
+.circleScaleBtn:hover::before {
+    transform: translate3d(-50%,-50%,0) scale3d(1,1,1); 
+    opacity: 1; 
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+    width: 100vw; /* Ocupa toda a largura da tela */
+    height: 100vh; /* Ocupa toda a altura da tela */
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.box-pop {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 40px;
+    background-color: #ffffff;
+    border: 4px solid #ffa500;
+    z-index: 3;
+    border-radius: 10px;
+    gap: 10px;
+    color: rgb(95, 95, 95);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.btn-vl{
+    background-color: #bb7c07; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 22px;
+    border-radius: 5px;
+    width: 80%;
+}
+
+.span-valor{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #ffa500;
+    gap: 5px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.box-pop .desc{
+    color: rgb(95, 95, 95);
+    width: 400px;
+    word-break: break-all;
+    font-size: 10px;
+}
+
+.btn-emp{
+    background-color: #ffa500; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 999px;
+    width: 80%;
+    cursor: pointer;
+}
+
+.popup-show .box-pop{
+    animation: fadeIn 1.0s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from{
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.box-pop li::marker{
+    content: "✔️";
+}
+
+.box-emp{
+    padding: 20px;
+    background-color: rgba(255, 166, 0, 0.212);
+    color: #adadad;
+    font-size: 15px;
+    border-radius: 10px;
+    width: 100%;
+}
+
+.box-emp span{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 540px) {
+    .box{
+        width: 298px;
+    }
+    .box-pop{
+        width: 230px;
+    }
+    .box-pop h1{
+        font-size: 14px;
+        font-weight: 900;
+    }
+    .box-emp{
+        word-wrap: break-word;
+        font-size: 10px;
+    }
+    .box-emp span{
+    gap: 6px;
+    font-weight: 900;
+}
+.box-emp img{
+    width: 40px;
+}
+    .popup{
+        padding: 0 0 0 0;
+    }
+    .box-pop .desc{
+        width: 106%;
+    }
+    .box-pop .span-info{
+        font-size: 10px;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 240px) {
+    .row-valores{
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+
+</style>
+<body>
+
+    <div class="popup">
+        <div class="overlay"></div>
+        <div class="box-pop">
+            <i id="voltar" style="position: relative; right: 50%; color: orange;" class='bx bxs-left-arrow'></i>
+            <img width="200px" src="logo.png" alt="">
+            <h1>Simulação de empréstimo</h1>
+            <span class="span-info">Para solicitar esse valor, clique no botão abaixo</span>
+                <div class="span-valor">
+                    <span class="span-selecionado">R$ 900</span>
+                    <span class="btn-vl">16x de R$ 135,87</span>
+                </div>
+                <div class="box-emp">
+                    <span>Empréstimo concedido pela financeira <img width="100px" src="https://plancredi.com.br/img/site/LOGO_CREFAZ.png" alt=""></span>
+                </div>
+                <span class="desc">Pagamento de 8 a 22 meses. Taxa equivalente ao CET mensal de 16,46% e anual de 522,16%. Exemplo: R$ 1.000,00, em 18 meses com parcelas de R$ 184,01.</span>
+                <span class="btn-emp" id="btn-emp">Solicitar Empréstimo</span>
+
+                <ul>
+                    <li>Sem comprovação de renda</li>
+                    <li>Possibilidade para negativado*</li>
+                    <li>Liberação em até 2 dias úteis</li>
+                    <li>Sem taxas antecipadas</li>
+                </ul>
+
+        </div>
+    </div>
+
+    <section class="container" id="valores">
+        <i class='bx bxs-credit-card-front'></i>
+        <h3 class="valordsj">Simule seu Empréstimo</h3>
+        <div class="box">
+            <h3 class="title">VALOR DESEJADO ?</h3>
+            <div class="row-valores"></div>
+            <div class="row-prazo none">
+                <span class="circleScaleBtn back right">Voltar</span>
+            </div>
+        </div>
+        <div class="infos">
+            <p>Taxa equivalente ao CET mensal de 16,46% e anual de 522,16%. Exemplo: R$ 1,000,00, em 18 meses com parcelas de R$ 184,01.</p>
+        </div>
+    </section>
+
+<script>
+        
+        const paidofilhosValores = document.querySelector('.row-valores');
+        const paidofilhosPrazos = document.querySelector('.row-prazo');
+        const back = paidofilhosPrazos.querySelector('.back');
+        const title = document.querySelector(".valordsj");
+        const popup = document.querySelector(".popup");
+        const btnvl = document.querySelector(".btn-vl");
+        const spanvl = document.querySelector(".span-selecionado");
+        const voltar = document.querySelector("#voltar");
+        const btnemp = document.querySelector("#btn-emp");
+
+
+        var valorSelecionado = 0
+
+
+        const valores = [
+            700,
+            800,
+            900,
+            1000,
+            1100,
+            1200,
+            1300,
+            1400,
+            1500,
+        ]
+        const prazos = [
+            12,
+            15,
+            16,
+            18,
+            20,
+        ]
+
+        function renderPrazos() {
+
+
+            var vezes = 0
+            title.innerHTML='Simulação de R$ '+valorSelecionado
+            paidofilhosPrazos.classList.remove('none')
+            var elements = []
+
+            prazos.forEach(valor => {
+
+                if (valorSelecionado >= 1000 && valor == 12) return
+
+                const span = document.createElement('span')
+                span.innerHTML='x'+valor
+                span.classList.add('circleScaleBtn')
+                span.classList.add('right')
+            
+                span.addEventListener("click", ()=> {
+                    popup.style.display = 'flex';
+                    popup.classList.add('popup-show');
+                    spanvl.innerHTML = `R$ ${valorSelecionado}`;
+                    btnvl.innerHTML = `${valor}X de ${calcularEmprestimo(valorSelecionado,valor)}`;
+
+                })
+            
+                elements.push(span)
+                paidofilhosPrazos.appendChild(span)
+
+                setTimeout(() => {
+                    span.classList.remove('right')
+                    back.classList.remove("right")
+                }, 100);
+    
+            });
+
+            
+        voltar.addEventListener("click", ()=> {
+            popup.style.display = 'none';
+        })
+
+        btnemp.addEventListener("click", () => {
+            window.location.href = "form.html";
+        })
+
+            back.addEventListener("click", () =>{
+                elements.forEach(element => {
+                    paidofilhosPrazos.classList.add('none')
+             
+                    element.remove()
+
+                        
+                });
+                back.classList.add("right")
+                renderValores()
+            })
+
+
+        }
+
+        function renderValores(){
+
+            title.innerHTML='Simule seu Empréstimo'
+
+            var span = paidofilhosValores.querySelectorAll('.circleScaleBtn')
+
+            if (span){
+                span.forEach(element => {
+                    element.remove()
+                });
+            }
+
+            var elements = []
+            var verify = 0
+
+            valores.forEach((valor, ind )=> {
+
+                verify++
+
+                const span = document.createElement('span')
+                span.innerHTML='R$ '+valor
+                span.classList.add('right')
+                span.classList.add('circleScaleBtn')
+
+                span.addEventListener("click", ()=> {
+                    valorSelecionado = valor
+
+                    elements.forEach(element => {
+                        element.remove()
+                    });
+                    elements.length = 0
+                    renderPrazos()
+                    
+                })
+
+                elements.push(span)
+                paidofilhosValores.appendChild(span)
+                setTimeout(() => {
+                    span.classList.remove('right')
+                }, 100);
+
+            });
+
+
+        }
+
+
+
+        renderValores()
+
+        function calcularEmprestimo(valor, parcelas) {
+        
+          const taxa = 16.46
+        
+          var juros = taxa / 100; 
+          var parcela = valor * juros / (1 - Math.pow(1 + juros, -parcelas));
+          return parcela.toFixed(2);
+        
+        }
+        
+
+        
+</script>
+
+</body>
+</html>

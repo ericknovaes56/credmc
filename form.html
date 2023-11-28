@@ -1,0 +1,520 @@
+﻿<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    main{
+        display: flex;
+        justify-content: space-between;
+    }
+    .left{
+        width: 40%;
+        background-color: white;
+        min-height: 100vh;
+    }
+    .left{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        color: white;
+        z-index: 3;
+    }
+    .box {
+        font-family: Arial, Helvetica, sans-serif;
+        color: black;
+        padding: 20px;
+    }
+
+    .box form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .input{
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 100%;
+    }
+    .input input {
+        padding: 16px 14px;
+        border: 1px solid #ccc;
+        background-color: transparent;
+        border-radius: 16px;
+        width: 100%;
+        min-height: 49px;
+        outline: none;
+    }
+    .input .label{
+        position: absolute;
+        padding: 6px 4px;
+        color: #2b2b2b;
+        transition: all 0.3s ease-out;
+        z-index: 2;
+        left: 14px;
+        cursor: pointer;
+        pointer-events: none;
+    }
+    .input .label.active {
+        transform: translateY(calc(-50% - 12px));
+        background-color: white;
+        color: #2b2b2b;
+        font-size: 12px;
+    }   
+    .box form button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 13px 15px;
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 20px;
+        width: 100%;
+    }
+
+    .box form button:hover {
+        background-color: #45a049;
+    }
+    .right{
+        width: 60%;
+        padding: 40px;
+        background-color: #131313;
+        background: 
+        linear-gradient(rgba(0, 0, 0, 0.603), rgba(0, 0, 0, 0.582)),
+        url('https://i.ibb.co/bKKMj09/OIG-KQ9yqo-L-waifu2x-photo-noise3-scale.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        z-index: 1;
+    }
+    .right .voltar{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .right .texts{
+        position: absolute;
+        top: 50%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+        word-wrap: break-word;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .right .texts p{
+        max-width: 580px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .texts{
+        padding-top: 15px;
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .element-top{
+        position: relative;
+    }
+
+    .element-top{
+        content: "";
+        padding: 40px;
+        background-color: orange;
+        position: absolute;
+        z-index: 1;
+        border-radius: 100%;
+        filter: blur(80px);
+        left: 0;
+        top: 0;
+        z-index: 2;
+    }
+
+    .element-bottom{
+        position: relative;
+    }
+
+    .element-bottom{
+        content: "";
+        padding: 40px;
+        background-color: rgb(0, 255, 0);
+        position: absolute;
+        z-index: 1;
+        border-radius: 100%;
+        filter: blur(80px);
+        left: 58%;
+        bottom: 0;
+        z-index: 2;
+    }
+
+    .hide{
+        display: none;
+    }
+
+    @keyframes fadeIn {
+    from{
+        opacity: 0;
+        transform: translateY(-60px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0px);
+    }
+}
+
+    .alert{
+        display: none;
+        align-items: center;
+        animation: fadeIn 1.0s ease-in-out;
+        position: fixed;
+        top: 20px;
+        right: 10px;
+        width: auto;
+        height: auto;
+        gap: 5px;
+        background-color: #f0fdf4;
+        z-index: 444;
+        color: #166534;
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .mobile{
+        display: none;
+    }
+    @media screen and (max-width: 957px) {
+        .right{
+            padding: 10px;
+        }
+        .mobile{
+            display: block;
+        }
+        .right .texts{
+	    margin-top: 30px;
+            width: 300px;
+        }
+        .right .texts p{
+            font-size: medium;
+            text-align: start;
+        }
+    }
+
+
+
+    @media screen and (max-width: 540px) {
+        .logo{
+            width: 120px;
+        }
+        .right .texts {
+            padding: 10px;
+            width: auto;
+        }
+        main{
+            flex-direction: column;
+        }
+        button{
+            width: 40vh;
+        }
+        .left{
+            display: block;
+        }
+        .right{
+        width: auto;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        padding: 10px;
+    }
+    .right .texts{
+        position: static;
+        transform: translate(0, 0);
+    }
+        .left{
+            width: 100%;
+        }
+        .left .box{
+            padding-top: 40px;
+            width: 100%;
+        }
+        input{
+            width: auto;
+        }
+}    
+</style>
+<body>
+
+    <main>
+
+        <div class="alert">
+            <i class='bx bx-badge-check'></i>
+            <h6>Seu formulario foi enviado com sucesso!</h6>
+        </div>
+
+        <div class="element-top"></div>
+        <div class="element-bottom"></div>
+
+        <div class="right">
+            <ul class="voltar">
+            <i id="voltar" style="font-size: 40px; color: white;" class='bx bx-left-arrow-alt'></i>
+            <img width="200px" src="logo.png" alt="" class="logo">
+            </ul>
+            <ul class="texts">
+                <h1>Primeiro, preencha o formulário.</h1>
+                <p>
+                    Descubra como tornamos o empréstimo mais acessível, com soluções financeiras que se adequam a você. Estamos aqui para ajudar!
+
+                </p>
+            </ul>
+        </div>
+        <div class="left">
+            <div class="box">
+                <form class="form">
+                    <div class="input">
+                        <input name="cpf" type="text" id="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" required>
+                        <label for="cpf" class="label">Digite seu CPF</label>
+                    </div>
+                    <div class="input">
+                        <input name="nome" type="text" id="nome" required>
+                        <label for="nome" class="label">Digite seu nome</label>                    
+                    </div>
+
+                    <div class="input">
+                        <input name="datanascimento" id="data"  type="date" id="datanascimento" required>
+                        <label for="data" class="label mobile">Data</label>
+                    </div>
+                
+                    <div class="input">
+                        <input name="profissao" type="text" id="profissao" required>
+                        <label for="profissao" class="label">Digite sua profissão</label>
+                    </div>
+
+                    <div class="input">
+                        <input name="cep" type="text" id="cep" pattern="\d{5}-\d{3}"  required>
+                        <label for="cep" class="label">Digite seu CEP</label>
+                    </div>
+
+                    <button type="submit" class="subform">
+                        <div class="txtsub">
+                            Enviar
+                        </div>
+                        <div class="subspin hide">
+                            <i class='bx bx-loader-alt bx-spin'></i>
+                        </div>
+                    </button>
+                </form>
+                
+            </div>
+        </div>
+    </main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>    
+<script>
+    
+    
+    const subform = document.querySelector(".subform");
+    const txtsub = document.querySelector(".txtsub");
+    const subspin = document.querySelector(".subspin");
+
+    subform.addEventListener("click", () => {
+        txtsub.classList.add("hide");
+        subspin.classList.remove("hide");
+    })
+
+    function pararspin(){
+
+        subspin.classList.add("hide");
+        txtsub.classList.remove("hide");
+
+    }
+
+    function alert(){
+        let aviso = document.querySelector(".alert");
+        aviso.style.display = 'flex';
+        setTimeout(() => {
+            aviso.style.display = 'none';
+        }, 4500)
+    }
+
+    async function getLocationInfo(latitude, longitude) {
+    const apiUrl = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1`;
+    var result = await fetch(apiUrl);
+    var resultJson = await result.json();
+    const cepElement = document.getElementById("cep");
+
+    if (cepElement) {
+        cepElement.value = resultJson.address.postcode;
+        var paiCep = cepElement.parentNode;
+        var labelCep = paiCep.querySelector("label");
+        labelCep.classList.add("active");
+    }
+    }
+
+    // Adicione a chamada para getLocationInfo quando o formulário é carregado
+    document.addEventListener("DOMContentLoaded", function () {
+
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        getLocationInfo(latitude, longitude);
+        });
+    } else {
+        console.log("Geolocalização não suportada pelo navegador.");
+    }
+    });
+
+    async function inviteForm(cpf,nome,datanascimento,profissao,cep){
+        const formDataFields = {
+            cpf: cpf,
+            nome: nome,
+            datanascimento: datanascimento,
+            profissao: profissao,
+            cep: cep,
+        }
+
+        const requestSheetMonkey = await fetch('https://api.sheetmonkey.io/form/6dSPfKsXMq38k8GAr55HbE', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formDataFields)
+        })
+
+        if(requestSheetMonkey.ok && requestSheetMonkey.status == 200){
+            alert();
+            pararspin();
+            console.log('Sending Successfully')
+            
+        } else {
+
+            console.log(`Sending failed! StatusCode -> ${requestSheetMonkey.status}`)
+
+        }
+
+    }
+
+    function formatDatanascimentoForGoogle(datanascimento) {
+        const dateObject = new Date(datanascimento);
+    
+        if (!isNaN(dateObject.getTime())) {
+            const day = dateObject.getDate().toString().padStart(2, '0');
+            const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+            const year = dateObject.getFullYear();
+
+            return `${day}/${month}/${year}`;
+        } else {
+            return datanascimento;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // ... (seu código existente) ...
+
+        // Adicione máscara ao CPF
+        $('#cpf').mask('000.000.000-00');
+
+        // Adicione máscara ao CEP
+        $('#cep').mask('00000-000');
+
+        document.querySelector(".form").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Impede o envio tradicional do formulário
+
+            const cep = document.getElementById("cep").value;
+
+            // Verifique se o CEP é válido (pode adicionar uma lógica mais avançada aqui se necessário)
+            if (!isValidCEP(cep)) {
+                const cep = document.getElementById("cep");
+                cep.style.border = "1px solid red";
+                return;
+            }
+
+            // Verifique se o CEP existe no Brasil
+            const isCEPValid = await checkCEP(cep);
+
+            if (!isCEPValid) {
+                const cep = document.getElementById("cep");
+                cep.style.border = "1px solid red";
+                return;
+            }else{
+                const cep = document.getElementById("cep");
+                cep.style.border = "1px solid green";
+            }
+
+
+            const cpf = document.getElementById("cpf").value;
+            const nome = document.getElementById("nome").value;
+            const datanascimento = document.getElementById("datanascimento").value;
+            const profissao = document.getElementById("profissao").value;
+
+
+
+            await inviteForm(cpf, nome, datanascimento, profissao, cep);
+
+        });
+    });
+
+    function isValidCEP(cep) {
+        return /^\d{5}-\d{3}$|^\d{8}$/.test(cep);
+    }
+
+    async function checkCEP(cep) {
+        try {
+            const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+            const data = await response.json();
+            
+            // Se a resposta contiver a propriedade "localidade", consideramos o CEP válido
+            return data.localidade !== undefined;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    const allInputs = document.querySelectorAll(".input input")
+    const handleFocusBlur = (event) => {
+
+        var elemento = event.target
+        var elementoPai = elemento.parentNode
+
+        const label = elementoPai.querySelector('label');
+        if (label){
+            
+            if (elemento.value != '') {
+
+                label.classList.add('active', event.type === 'focus');
+
+                return
+
+            }
+
+            label.classList.toggle('active', event.type === 'focus');
+
+        }
+
+    };
+
+    allInputs.forEach(element => {
+
+        element.addEventListener("focus", handleFocusBlur);
+        element.addEventListener("blur", handleFocusBlur);
+
+    });
+
+</script>    
+</body>
+</html>
